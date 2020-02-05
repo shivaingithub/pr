@@ -1,0 +1,163 @@
+<!--Bharat COde-->
+<div>
+ <!--event name-->
+ <div isrvSelectHolder fxFlex.md="100" fxFlex.lg="100" fxFlex="100" ngClass.md="isrv-r-padder-5"
+ ngClass.lg="isrv-r-padder-5" class="isrv-b-padder-5">
+ <label id="paraAdmin_channel_channel_label" i18n>EVENT NAME</label>
+
+     <mat-input-container floatPlaceholder="never">
+       <input id="eventname" type="text" matInput [(ngModel)]="event.eventname"  (ngModelChange)="onEventNameChange(event)"								
+         [ngModelOptions]="{standalone: true}"
+         placeholder="Enter Event name">
+     </mat-input-container>						
+ </div>
+
+ <div fxLayout.md="row" fxLayout.lg="row" fxLayout="column" fxLayoutWrap
+ *ngFor="let action of event.actionsList; let i = index">
+   <!-- actionName-->
+ <div isrvSelectHolder fxFlex.md="100" fxFlex.lg="100" fxFlex="100" ngClass.md="isrv-r-padder-5"
+   ngClass.lg="isrv-r-padder-5" class="isrv-b-padder-5">
+   <label id="paraAdmin_channel_channel_label" i18n>action name</label>
+   <mat-input-container floatPlaceholder="never">
+     <input id="eventname" type="text" matInput [(ngModel)]="action.actionName"									
+       [ngModelOptions]="{standalone: true}"
+       placeholder="Enter action name">
+   </mat-input-container>
+ </div>
+
+
+
+ <!-- endpoint name -->
+ <div isrvSelectHolder fxFlex.md="100" fxFlex.lg="100" fxFlex="100" ngClass.md="isrv-l-padder-5"
+   ngClass.lg="isrv-l-padder-5" class="isrv-b-padder-5">
+   <label id="paraAdmin_verificationLevel_channel_label"
+     i18n>EndPoint Name</label>
+   <mat-input-container floatPlaceholder="never" id="verificationLevel_List_Sr_Container">
+     <input id={{action.endPoint}} type="text" matInput
+       [(ngModel)]="action.endPoint" [matAutocomplete]="endPointNames"
+       [modelOptions]="availableEndPointsList"
+       (autoChange)="onEndPointChange(action)"
+       placeholder="Please Select End Point" displayProperty="value"
+       [ngModelOptions]="{standalone: true}">
+   </mat-input-container>
+
+   <mat-autocomplete id="config-sr-view-modify-popup.component_mat-autocomplete_14"
+     #endPointNames="matAutocomplete">
+
+   </mat-autocomplete>
+ </div>
+   <!-- requet type -->
+ <div isrvSelectHolder fxFlex.md="100" fxFlex.lg="100" fxFlex="100" ngClass.md="isrv-l-padder-5"
+ ngClass.lg="isrv-l-padder-5" class="isrv-b-padder-5">
+   <label id="paraAdmin_verificationLevel_channel_label"
+     i18n>Request Type</label>
+   <span>{{action.endPoint.type}}</span>				
+</div>
+<!-- inputs -->
+<div isrvSelectHolder fxFlex.md="100" fxFlex.lg="100" fxFlex="100" ngClass.md="isrv-r-padder-5"
+ngClass.lg="isrv-r-padder-5" class="isrv-b-padder-5">
+   <label id="paraAdmin_channel_channel_label" i18n>Inputs</label>
+   <mat-input-container floatPlaceholder="never" >
+     <textarea floatPlaceholder="never"  matInput [ngModel]="action.endPoint.inputs"    [ngModelOptions]="{standalone: true}" disabled></textarea>
+   </mat-input-container>
+</div>
+
+<!-- dependencies-->
+
+
+ <div isrvSelectHolder fxFlex.md="100" fxFlex.lg="100" fxFlex="100" ngClass.md="isrv-r-padder-5"
+ ngClass.lg="isrv-r-padder-5" class="isrv-b-padder-5">
+     <label id="paraAdmin_channel_channel_label" i18n>Dependcies</label>
+     <mat-radio-group id="radioGroup_estmt_paper" [ngModel]="action.dependency" [ngModelOptions]="{standalone: true}" fxLayout="row">
+       <mat-radio-button   id="eStatement{{index}}" value="eStatement" class="isrv-r-padder-1" (click)="onDepenciesSelection('Y',action)">Yes</mat-radio-button>
+       <mat-radio-button id="paper{{index}}"  value="Paper" class="isrv-r-padder-1" (click)="onDepenciesSelection('',action)" >No</mat-radio-button>
+     </mat-radio-group>
+ </div>
+
+ <div fxFlex.md="100" fxFlex.lg="100" fxFlex="100" 
+ *ngFor="let mappingAction of action.mappedActionsList; let i = index">
+     <label id="paraAdmin_channel_channel_label" >{{mappingAction.name}} - Order</label>
+     <mat-input-container floatPlaceholder="never">
+       <input id="eventname" type="text" matInput [(ngModel)]="mappingAction.order" 								
+         [ngModelOptions]="{standalone: true}"
+         placeholder="Enter action name">
+     </mat-input-container>
+ </div>
+     <div fxLayout="row" fxLayoutAlign="end end" fxFlex.lg="100">
+
+
+       <div ngClass.md="isrv-r-padder-5" ngClass.lg="isrv-r-padder-5">
+         <a mat-button color="accent" (click)="removeAction(i)">
+           <mat-icon id="view-param.component_mat-icon_9" fontSet="fontawesome"
+             fontIcon="fa-minus-circle" color="accent">
+           </mat-icon>
+         </a>
+       </div>
+       <div>
+
+         <a mat-button color="accent" (click)="addAction()">
+           <mat-icon id="view-param.component_mat-icon_9" fontSet="fontawesome"
+             fontIcon="fa-plus-circle" color="accent">
+           </mat-icon>
+         </a>
+       </div>
+     </div>
+ </div>
+</div>
+<!--Bharat Code-->
+
+
+
+
+//bharat
+event:any = {};
+availableEndPointsList:any = [];
+
+constructor(private logger : NGXLogger, private crmRelatedService: CrmRelatedComponentService,  private storageService: StorageService,private fb: FormBuilder, private iserveLoaderService: IserveLoaderService) { }
+
+//bharat
+
+intializeEventData(){
+this.event.actionsList = [];
+this.addAction();
+}
+
+onEventNameChange(event){
+console.log(event);
+}
+onEndPointChange(action){
+action.type = action.endPoint.type;
+action.inputs = action.endPoint.inputs;
+}
+setAvailableEndPoints(){
+this.availableEndPointsList = [];
+this.availableEndPointsList.push({key:'https://fetchcall',value:'https://fetchcall',type:'GET',inputs:'{input:data}'});
+this.availableEndPointsList.push({key:'https://GlobalFileUpload',value:'https://GlobalFileUpload',type:'POST',inputs:'{input:data}'});
+this.availableEndPointsList.push({key:'https://fetchcall2',value:'https://fetchcall2',type:'POST',inputs:'{input:data}'});
+}
+onDepenciesSelection(depSelection,currentAction){
+let allActions = this.event.actionsList;
+let mappedActionsList = [];
+if(depSelection){
+allActions.forEach(action => {
+  if(action != currentAction){
+      mappedActionsList.push({'name':action.actionName,'order':''});
+  }
+});
+currentAction.mappedActionsList = mappedActionsList;
+}else{
+currentAction.mappedActionsList = [];
+}
+}
+removeAction(actionIndex){
+this.event.actionsList.splice(actionIndex,1);
+}
+addAction(){
+let action = {'actionName':'','endPoint':{},'mappedActionsList':[]};
+this.event.actionsList.push(action)
+}
+//bharat
+
+ngOnInit() {
+this.intializeEventData(); //bharat
+this.setAvailableEndPoints();//bharat
