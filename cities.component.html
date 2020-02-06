@@ -1,0 +1,139 @@
+<!--Bharat COde-->
+<div style="max-width:30%">
+ <!--event name-->
+		<div>
+			<label class="normal-label">EVENT NAME</label>
+			<div  class="item-container">
+			   <input id="eventname" type="text"  [(ngModel)]="event.eventname"  (ngModelChange)="onEventNameChange(event)" placeholder="Enter Event name">
+			</div>						
+		</div>
+ 
+	  <div  *ngFor="let action of event.actionsList; let i = index">
+						 <div>
+							   <label class="normal-label">action name</label>
+							   <div  class="item-container">
+								 <input id="actionName{{i}}" type="text"  (ngModelChange)="onActionNameChange(action)" [(ngModel)]="action.actionName" placeholder="Enter action name">
+							   </div>
+						</div>
+						
+						 <div>
+							   <label class="normal-label">EndPoint Name</label>
+							   <div class="item-container">
+								 <p-dropdown id={{action.endPoint}} [autoDisplayFirst]="false"
+					   [(ngModel)]="action.endPoint" 
+					   [options]="availableEndPointsList"				  
+					   placeholder="Please Select End Point" optionLabel="value"></p-dropdown>
+							   </div>	  
+						</div>
+						 <div>
+							   <label class="normal-label">Request Type</label>
+							   <span>{{action.endPoint.type}}</span>				
+						</div>
+				
+						<div>
+						   <label class="normal-label">Inputs</label>
+						   <div class="item-container">
+							 <textarea [ngModel]="action.endPoint.inputs" disabled></textarea> 
+						   </div>
+						</div>
+						
+						 <div>
+								 <p-checkbox name="checkboxName{{i}}" [(ngModel)]="action.isDependencyChecked" (onChange)="onDepenciesSelection(action.isDependencyChecked,action)"
+									binary="true" label="Dependcies"></p-checkbox>	
+						</div>
+						
+						 <div *ngFor="let mappingAction of action.mappedActionsList; let i = index">
+								 <label class="normal-label">{{mappingAction.name}} - Order</label>
+								 <div class="item-container">
+								   <input id="eventname" type="text"  [(ngModel)]="mappingAction.order" placeholder="Enter Order">
+								 </div>
+								  <a color="accent" (click)="addMappedAction(action)"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+									<a color="accent" (click)="removeMappedAction(action,i)"><i class="fa fa-minus-circle" aria-hidden="true"></i> </a>	
+						</div>
+						
+						<div style="width:100%;">
+							   <div style="display:inline-block;float:right">
+									 <a color="accent" (click)="addAction()"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+									<a color="accent" (click)="removeAction(i)"><i class="fa fa-minus-circle" aria-hidden="true"></i> </a>	
+								</div>
+						</div>
+	  </div>
+	  <div>	
+		<button (click)="saveEvent()">save</button>
+	  </div>
+ </div>
+
+ <!--<div  *ngFor="let action of event.actionsList; let i = index">
+			   
+			 <div>
+			   <label class="normal-label">action name</label>
+			   <div  class="item-container">
+				 <input id="actionName{{i}}" type="text"  [(ngModel)]="action.actionName" placeholder="Enter action name">
+			   </div>
+			 </div>
+
+
+			 
+			 <div>
+			   <label class="normal-label">EndPoint Name</label>
+			   <div class="item-container">
+				 <p-dropdown  
+				   [(ngModel)]="action.endPoint" 
+				   [options]="availableEndPointsList"
+				   (ngModelChange)="onEndPointChange(action)"
+				    optionLabel="value"></p-dropdown>
+			   </div>	  
+			</div>
+			  
+			 <div>
+			   <label class="normal-label">Request Type</label>
+			   <span>{{action.endPoint.type}}</span>				
+			</div>
+			
+			<div>
+			   <label class="normal-label">Inputs</label>
+			   <div class="item-container">
+				 <textarea></textarea> 
+			   </div>
+			</div>
+
+
+
+		 <div>
+			 <label class="normal-label">Dependcies</label>
+			 <div class="item-container">
+			 <mat-radio-group id="radioGroup_estmt_paper" [ngModel]="action.dependency"  fxLayout="row">
+			   <mat-radio-button   id="eStatement{{index}}" value="eStatement"  (click)="onDepenciesSelection('Y',action)">Yes</mat-radio-button>
+			   <mat-radio-button id="paper{{index}}"  value="Paper" (click)="onDepenciesSelection('',action)" >No</mat-radio-button>
+			 </mat-radio-group>
+			</div>
+		 </div>
+
+		 <div *ngFor="let mappingAction of action.mappedActionsList; let i = index">
+			 <label class="normal-label">{{mappingAction.name}} - Order</label>
+			 <div class="item-container">
+			   <input id="eventname" type="text"  [(ngModel)]="mappingAction.order" placeholder="Enter action name">
+			 </div>
+		 </div>
+		 <div>
+		   <div>
+			 <a color="accent" (click)="removeAction(i)">
+			   <mat-icon id="view-param.component_mat-icon_9" fontSet="fontawesome"
+				 fontIcon="fa-minus-circle" color="accent">
+			   </mat-icon>
+			 </a>
+		   </div>
+		   <div>
+
+			 <a mat-button color="accent" (click)="addAction()">
+			   <mat-icon id="view-param.component_mat-icon_9" fontSet="fontawesome"
+				 fontIcon="fa-plus-circle" color="accent">
+			   </mat-icon>
+			 </a>
+		   </div>
+		 </div>
+ </div> -->
+
+<!--Bharat Code-->
+
+
